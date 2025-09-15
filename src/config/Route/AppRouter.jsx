@@ -1,5 +1,6 @@
+// src/routes/AppRouter.jsx
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Slider from "../../components/Slider";
 import Selfimprvements from "../../components/selfim";
 import Islamicknowledge from "../../components/islam";
@@ -9,26 +10,53 @@ import Scienceknowledge from "../../components/scienceknowledge";
 import ProtectedRoute from "./ProtectedRoute";
 import SignInPage from "../../components/Signin";
 import SignUpPage from "../../components/Signup";
-
-
+import { SignedIn, SignedOut } from "@clerk/clerk-react";
+import PublicNavigation from "../../components/PublicNavigation";
+import Navigation from "../../components/Navigation";
 
 const AppRouter = () => {
-  return (
-    <div className="pt-20 px-4">
-      <Routes>
-        {/* Public routes */}
+  const location = useLocation();
+  const isAuthPage =
+    location.pathname.startsWith("/signin") ||
+    location.pathname.startsWith("/signup");
 
-        <Route path="/" element={<Slider />} />
+  if (isAuthPage) {
+    return (
+      <Routes>
+        {/* 👇 note the /* here */}
+        <Route path="/signin/*" element={<SignInPage />} />
+        <Route path="/signup/*" element={<SignUpPage />} />
+      </Routes>
+    );
+  }
+
+  return (
+    <div className="pt-20 min-h-screen">
+      <SignedOut>
+        <PublicNavigation />
+      </SignedOut>
+      <SignedIn>
+        <Navigation />
+      </SignedIn>
+
+      <SignedIn>
+        {location.pathname === "/" && <Slider />}
+      </SignedIn>
+      <SignedOut>
+        {location.pathname === "/" && (
+          <div className="h-[80vh] flex items-center justify-center">
+            <h2 className="text-gray-600 text-xl">
+              Welcome! Please sign in to explore more.
+            </h2>
+          </div>
+        )}
+      </SignedOut>
+
+      <Routes>
         <Route path="/selfim" element={<Selfimprvements />} />
         <Route path="/islam" element={<Islamicknowledge />} />
         <Route path="/Tecnology" element={<Tecnology />} />
         <Route path="/Generalknowledge" element={<Generalknowledge />} />
-        <Route path="/signin" element={<SignInPage/>} /> {/* ✅ new route */}
-        <Route path="/signup" element={<SignUpPage />} /> {/* ✅ new route */}
-
-
-
-        {/* Protected route */}
         <Route
           path="/scienceknowledge"
           element={
