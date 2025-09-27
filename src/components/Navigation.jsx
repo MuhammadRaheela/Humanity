@@ -16,6 +16,7 @@ function Navigation() {
     { text: "Sociology", url: "https://en.wikipedia.org/wiki/Sociology" },
     { text: "Ethics", url: "https://en.wikipedia.org/wiki/Ethics" },
     { text: "Culture", url: "https://en.wikipedia.org/wiki/Culture" },
+    
   ];
 
   return (

@@ -4,7 +4,7 @@ import { SignIn } from "@clerk/clerk-react";
 
 const SignInPage = () => {
   return (
-    <div className="flex justify-center items-center h-[85vh] ">
+    <div className="flex justify-center items-center h-[100vh] mt-8">
       <SignIn path="/signin" routing="path" signUpUrl="/signup" />
     </div>
   );
