@@ -13,6 +13,8 @@ import SignUpPage from "../../components/Signup";
 import { SignedIn, SignedOut } from "@clerk/clerk-react";
 import PublicNavigation from "../../components/PublicNavigation";
 import Navigation from "../../components/Navigation";
+import { PlaneLanding } from "lucide-react";
+import HumanityLanding from "../../components/Landingpage";
 
 const AppRouter = () => {
   const location = useLocation();
@@ -46,7 +48,7 @@ const AppRouter = () => {
         {location.pathname === "/" && (
           <div className="h-[80vh] flex items-center justify-center">
             <h2 className="text-gray-600 text-xl">
-              Welcome! Please sign in to explore more.
+             <HumanityLanding/>
             </h2>
           </div>
         )}
